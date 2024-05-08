@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Sonic Worlds Next"
+config/name="Sonic Worlds Next (Circuit Intensity Fork)"
+config/description="Modified version of SWD for Sonic Circuit Intensity"
 run/main_scene="res://Scene/Main.tscn"
 config/features=PackedStringArray("4.2")
 boot_splash/bg_color=Color(1, 1, 1, 1)
@@ -28,7 +29,7 @@ shapes/collision/shape_color=Color(1, 1, 1, 0.501961)
 
 [display]
 
-window/size/viewport_width=320
+window/size/viewport_width=400
 window/size/viewport_height=224
 window/stretch/mode="viewport"
 
