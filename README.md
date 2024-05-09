@@ -1,6 +1,6 @@
 ***PLEASE PLEASE PLEASE! Do not report any issues you find here to the upstream repostory! All the bad code here is my fault!***
 
-This is a fork of Sonic Worlds Next designed for a fan game called Sonic Circuit Intensity. So far I'm just messing around
+This is a fork of Sonic Worlds Next designed for a fan game called Sonic Circuit Intensity. So far I'm just messing around but I'm hoping to differentiate the feature set a bit more.
 
 This project uses GNU Unifont, which is licensed under the [SIL Open Font License](https://unifoundry.com/OFL-1.1.txt)
 I seriously need to add a proper credit for it here!
