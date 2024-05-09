@@ -1,9 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://qs5dmtxxf1w1"]
+[gd_scene load_steps=11 format=3 uid="uid://qs5dmtxxf1w1"]
 
 [ext_resource type="Script" path="res://Scripts/Level/Title.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://cbloyreqnle13" path="res://Graphics/title/Sonic_Worlds_Next_Logo.png" id="2_qt26u"]
-[ext_resource type="FontFile" uid="uid://ml62eqfe7avn" path="res://Graphics/Fonts/small_font.png" id="3_yuhp3"]
 [ext_resource type="Texture2D" uid="uid://dt51ojxk80oqh" path="res://Graphics/Items/Rings/Ring.tres" id="4_vmy7g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cnfvh"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mns7u"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="2"]
 length = 0.001
@@ -273,7 +280,6 @@ pivot_offset = Vector2(0, 70)
 color = Color(0.533333, 0.533333, 0.533333, 1)
 
 [node name="Labels" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,12 +293,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
 offset_top = -22.0
-offset_right = 136.0
+offset_right = 305.0
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_yuhp3")
-text = "v2.0.6 GIT MAIN"
+text = "v2.0.6 GIT MAIN (ShadowXeldron's Fork)"
+label_settings = SubResource("LabelSettings_cnfvh")
 vertical_alignment = 2
 uppercase = true
 
@@ -304,23 +311,28 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -72.0
-offset_top = -11.0
+offset_left = -73.0
+offset_top = -16.0
+offset_right = -1.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_yuhp3")
 text = "2021 2023"
+label_settings = SubResource("LabelSettings_mns7u")
 horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="PressStart" type="Control" parent="CanvasLayer/Labels"]
 modulate = Color(1, 0.831373, 0, 1)
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -24.0
+offset_left = 2.0
+offset_top = -70.0
+offset_right = 2.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -331,16 +343,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -47.5
+offset_left = -90.0
 offset_top = -12.0
-offset_right = 47.5
-offset_bottom = 12.0
+offset_right = 110.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("3_yuhp3")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 bbcode_enabled = true
-text = "
-[center][wave freq=10.0 amp=30.0]PRESS START[/wave][/center]"
+text = " [center][wave freq=10.0 amp=30.0]PRESS START[/wave][/center]"
 scroll_active = false
 
 [node name="Cover" type="CanvasLayer" parent="."]

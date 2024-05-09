@@ -1748,7 +1748,6 @@ position = Vector2(9328, 496)
 [node name="BossBoundrySetter" parent="Enemies" instance=ExtResource("59_g4kjd")]
 position = Vector2(9872, 80)
 bossPath = NodePath("../Robotnik")
-keepRightLocked = false
 lockTop = false
 lockBottom = false
 ratchetScrollLeft = true

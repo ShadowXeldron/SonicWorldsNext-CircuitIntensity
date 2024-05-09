@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c30uceea18q1w"]
+[gd_scene load_steps=30 format=3 uid="uid://c30uceea18q1w"]
 
 [ext_resource type="Texture2D" uid="uid://dloxtqer7p78l" path="res://Graphics/HUD/hud_lives.png" id="2_cfvjc"]
 [ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="2_xy7bp"]
@@ -15,6 +15,9 @@
 [ext_resource type="Material" uid="uid://uh2c8jbp8qwd" path="res://Shaders/WaterPalette.tres" id="13_1ly2g"]
 [ext_resource type="AudioStream" uid="uid://dh4rsaka62ph4" path="res://Audio/SFX/Gimmicks/Switch.wav" id="16"]
 [ext_resource type="AudioStream" uid="uid://clgobastngtvy" path="res://Audio/SFX/Misc/Score.wav" id="17"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6elbh"]
+font_size = 8
 
 [sub_resource type="Animation" id="5"]
 length = 0.001
@@ -700,6 +703,7 @@ offset_right = 32.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("3_eauoj")
 text = "0"
+label_settings = SubResource("LabelSettings_6elbh")
 
 [node name="Counters" type="Control" parent="."]
 layout_mode = 3
@@ -783,9 +787,9 @@ color = Color(0, 0, 0, 1)
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -94.5
+offset_left = 65.5
 offset_top = -203.0
-offset_right = 94.5
+offset_right = 254.5
 size_flags_stretch_ratio = 0.0
 texture = ExtResource("7_ccygi")
 stretch_mode = 2
@@ -820,7 +824,7 @@ vframes = 2
 [node name="PatternLeft" type="Control" parent="LevelCard"]
 anchors_preset = 0
 anchor_bottom = 1.0
-offset_bottom = 14592.0
+offset_bottom = 15040.0
 
 [node name="PatternLeft" type="TextureRect" parent="LevelCard/PatternLeft"]
 layout_mode = 1
@@ -844,7 +848,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -32.0
-offset_bottom = 14304.0
+offset_bottom = 14752.0
 
 [node name="PatternRight" type="TextureRect" parent="LevelCard/RightRatio/PatternRight"]
 layout_mode = 1
@@ -853,9 +857,9 @@ anchor_left = 1.0
 anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
-offset_top = -11.68
-offset_right = 4288.0
-offset_bottom = 244.32
+offset_top = 32.0
+offset_right = 4896.0
+offset_bottom = 288.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("10_xpi0a")

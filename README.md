@@ -1,4 +1,21 @@
-***PLEASE PLEASE PLEASE! Before you submit a Pull Request to this repository, post about what you want to submit in [Discussions](https://github.com/Techokami/SonicWorldsNext/discussions) first! PLEASE!***
+***PLEASE PLEASE PLEASE! Do not report any issues you find here to the upstream repostory! All the bad code here is my fault!***
+
+This is a fork of Sonic Worlds Next designed for a fan game called Sonic Circuit Intensity. So far I'm just messing around
+
+This project uses GNU Unifont, which is licensed under the [SIL Open Font License](https://unifoundry.com/OFL-1.1.txt)
+I seriously need to add a proper credit for it here!
+
+# Differences from vanilla Sonic Worlds Next
+- Widescreen suppport: Viewport resolution has been changed from 360x224 to 400x224 (which is what Sonic 3 AIR uses). Note that it's kind of glitchy!
+- Partially changed the text to use Unifont rather than the normal pixel font to better account for internationalisation
+- Default keyboard controls have been changed to the ones used by Sonic Mania (A, S and D simulate A, B and C respectively)
+
+### Planned Features
+- World map system
+- Score-based per-level ranking system (similar to an S3AIR mod that I'm working on)
+- More playable characters (specifically Mighty and Ray; maybe a few others)
+- Replace Amy's moveset with her Superstars abilities (SWN uses her Origins moveset
+- Actual Special Stages using Godot's 3D features
 
 # Sonic Worlds Next
 ![Logo](https://github.com/Techokami/SonicWorldsNext/blob/main/icon.png)
