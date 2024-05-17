@@ -11,17 +11,27 @@ var actionPressed = false
 # note: idle is always played first
 # you'll want to increase this for the number of playable characters
 var playerIdles = [
-# SONIC
-["idle1","idle2","idle2","idle2","idle2","idle3",
-"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
-"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
-"idle5"],
-# Tails
-["idle1"], # Note: Tails idle loops on idle one, to add more idles make sure to disable his idle1 loop
-# Knuckles
-["idle1"],
-# Amy
-["idle1","idle1","idle1","idle1","idle1","idle1","idle1","idle1","idle2","idle3"] # Note: like Tails, Amy loops on idle3
+	# SONIC
+	["idle1","idle2","idle2","idle2","idle2","idle3",
+	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+	"idle5"],
+	
+	# Tails
+	
+	["idle1"], # Note: Tails idle loops on idle one, to add more idles make sure to disable his idle1 loop
+	
+	# Knuckles
+	["idle1"],
+	
+	# Amy
+	["idle1","idle1","idle1","idle1","idle1","idle1","idle1","idle1","idle2","idle3"], # Note: like Tails, Amy loops on idle3
+
+	# Mighty (using Sonic as a placeholder)
+	["idle1","idle2","idle2","idle2","idle2","idle3",
+	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+	"idle5"]
 ]
 
 func state_exit():

@@ -89,7 +89,7 @@ func _process(_delta):
 									if parent.shieldSprite.animation != "BubbleBounce":
 										parent.sfx[15].play()
 										# set movement and bounce reaction
-										parent.movement = Vector2(0,8*60)
+										parent.movement.y = 8*60 #Vector2(0,8*60)
 										parent.bounceReaction = 7.5
 										parent.shieldSprite.play("BubbleAction")
 										# set timer for animation related resets
@@ -113,12 +113,20 @@ func _process(_delta):
 					parent.CHARACTERS.AMY:
 						# set ability used to true to prevent multiple uses
 						parent.abilityUsed = true
+						parent.movement.y = -4.75*60.0
 						# enable insta shield hitbox if hammer drop dashing
 						parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = (parent.animator.current_animation == "dropDash")
 						# play hammer sound
 						parent.sfx[30].play()
 						# play dropDash sound
 						parent.animator.play("dropDash")
+					# Mighty's ground pound
+					parent.CHARACTERS.MIGHTY:
+						# set initial movement
+						parent.sfx[15].play()
+						# set movement and bounce reaction
+						parent.movement = Vector2(parent.movement.x / 2,8*90)
+						parent.bounceReaction = 2.5
 						
 
 

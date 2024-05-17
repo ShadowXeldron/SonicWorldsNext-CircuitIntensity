@@ -6,7 +6,7 @@ extends Node2D
 var selected = false
 
 # character labels, the amount of labels in here determines the total amount of options, see the set character option at the end for settings
-var characterLabels = ["Sonic and Tails", "Sonic", "Tails", "Knuckles", "Amy"]
+var characterLabels = ["Sonic and Tails", "Sonic", "Tails", "Knuckles", "Amy", "Mighty"]
 # level labels, the amount of labels in here determines the total amount of options, see set level option at the end for settings
 var levelLabels = ["Base Zone Act 1", "Base Zone Act 2"]#, "Chunk Zone Act 1"]
 # character id lines up with characterLabels
@@ -83,6 +83,8 @@ func _input(event):
 					Global.PlayerChar1 = Global.CHARACTERS.KNUCKLES
 				4: # Amy
 					Global.PlayerChar1 = Global.CHARACTERS.AMY
+				5: # Mighty
+					Global.PlayerChar1 = Global.CHARACTERS.MIGHTY
 					
 			# set the level
 			match(levelID):

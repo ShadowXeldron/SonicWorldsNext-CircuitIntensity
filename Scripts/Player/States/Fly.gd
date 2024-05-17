@@ -68,6 +68,9 @@ func _process(_delta):
 
 func _physics_process(delta):
 	
+	if parent.any_action_held_or_pressed() and (parent.get_y_input() > 0):
+		parent.set_state(parent.STATES.NORMAL)
+	
 	# If carrying another player, 
 	var carriedPlayer = null
 	
@@ -122,7 +125,8 @@ func _physics_process(delta):
 	# Button press
 	if parent.movement.y >= -1*60 and flightTime > 0 and !parent.roof and parent.position.y >= parent.limitTop+16:
 		if parent.any_action_held_or_pressed() and (!actionPressed or parent.get_y_input() < 0) and (carryBox.get_player_contacting_count() == 0 or !parent.water):
-			flyGrav = -0.125
+			flyGrav = -0.13
+
 	# return gravity to normal after velocity is less then -1
 	else:
 		flyGrav = 0.03125

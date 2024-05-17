@@ -59,7 +59,7 @@ var enemyCounter = 0
 # 8 Jump
 # 9 Jump release velocity
 
-enum CHARACTERS {SONIC, TAILS, KNUCKLES, AMY}
+enum CHARACTERS {SONIC, TAILS, KNUCKLES, AMY, MIGHTY}
 var character = CHARACTERS.SONIC
 
 # 0 = Sonic, 1 = Tails, 2 = Knuckles, 3 = Shoes, 4 = Super Sonic
@@ -317,7 +317,11 @@ func _ready():
 				playerPal.set_shader_parameter("row",0)
 				playerPal.set_shader_parameter("paletteTexture",load("res://Graphics/Palettes/SuperAmy.png"))
 				
-			#CHARACTERS.AMY:
+			CHARACTERS.MIGHTY:
+				playerPal.set_shader_parameter("amount",4)
+				playerPal.set_shader_parameter("palRows",16)
+				playerPal.set_shader_parameter("row",0)
+				playerPal.set_shader_parameter("paletteTexture",load("res://Graphics/Palettes/SuperKnuckles.png"))
 				
 	
 	
@@ -495,7 +499,8 @@ func _process(delta):
 	if (rotatableSprites.has(animator.current_animation)):
 		# check if player rotation is greater then 45 degrees or current angle doesn't match the gravity's angle or not on the floor
 		if abs(spriteRotation-90) >= 32 or rotation != gravityAngle or !ground:
-			sprite.rotation = deg_to_rad(snapped(spriteRotation,45)-90)-rotation-gravityAngle
+			#sprite.rotation = deg_to_rad(snapped(spriteRotation,45)-90)-rotation-gravityAngle
+			sprite.rotation = deg_to_rad(spriteRotation-90)-rotation-gravityAngle
 		else:
 			sprite.rotation = -rotation-gravityAngle
 		# uncomment this next line out for smooth rotation (you should remove the above line too)
@@ -1213,6 +1218,12 @@ func determine_physics():
 				return 7 # Shoes
 			return 2 # Knuckles
 		CHARACTERS.AMY: # I don't know what amy's physics are so in the meantime we just look at sonic
+			if isSuper:
+				return 4 # Super Sonic
+			elif shoeTime > 0:
+				return 3 # Shoes
+			return 0 # Sonic
+		CHARACTERS.MIGHTY: # I don't know what Mighty's physics are so in the meantime we just look at sonic
 			if isSuper:
 				return 4 # Super Sonic
 			elif shoeTime > 0:
