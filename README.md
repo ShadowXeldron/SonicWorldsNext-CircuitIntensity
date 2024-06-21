@@ -6,11 +6,15 @@ This project uses GNU Unifont, which is licensed under the [SIL Open Font Licens
 I seriously need to add a proper credit for it here!
 
 # Differences from vanilla Sonic Worlds Next
+
 - Widescreen suppport: Viewport resolution has been changed from 360x224 to 400x224 (which is what Sonic 3 AIR uses). Note that it's kind of glitchy!
 - Partially changed the text to use Unifont rather than the normal pixel font to better account for internationalisation
 - Default keyboard controls have been changed to the ones used by Sonic Mania (A, S and D simulate A, B and C respectively)
+- Dedicated super theme
+- Split level paths
 
 ### Planned Features
+
 - World map system
 - Support for multiple level exits which lead to different stages
 - Score-based per-level ranking system (similar to an S3AIR mod that I'm working on)
@@ -19,6 +23,7 @@ I seriously need to add a proper credit for it here!
 - Actual Special Stages using Godot's 3D features
 
 # Sonic Worlds Next
+
 ![Logo](https://github.com/Techokami/SonicWorldsNext/blob/main/icon.png)
 
 This is the official development repository for the successor to Sonic Worlds Delta.

@@ -1,11 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgyqi2ruk0v70"]
+[gd_scene load_steps=2 format=3 uid="uid://bs44qs0g3yics"]
 
 [ext_resource type="Script" path="res://Scripts/Level/MainMenu.gd" id="1_3sssp"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_3sssp")
 
-[node name="ReturnToTitle" type="Button" parent="."]
+[node name="ReturnToTitle" type="Button" parent="Control"]
+layout_mode = 0
 offset_top = 25.0
 offset_right = 128.0
 offset_bottom = 49.0
@@ -13,7 +22,8 @@ mouse_filter = 1
 mouse_default_cursor_shape = 2
 text = "RETURN TO TITLE"
 
-[node name="StartGame" type="Button" parent="."]
+[node name="StartGame" type="Button" parent="Control"]
+layout_mode = 0
 offset_right = 83.0
 offset_bottom = 8.0
 mouse_filter = 1
@@ -21,6 +31,3 @@ mouse_default_cursor_shape = 2
 theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/icon_hover_pressed_color = Color(0, 1, 0, 1)
 text = "START GAME"
-
-[connection signal="gui_input" from="ReturnToTitle" to="." method="_on_return_to_title_gui_input"]
-[connection signal="gui_input" from="StartGame" to="." method="_on_start_game_gui_input"]

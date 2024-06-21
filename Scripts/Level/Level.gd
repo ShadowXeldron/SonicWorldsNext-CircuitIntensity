@@ -1,7 +1,8 @@
 extends Node2D
 
 @export var music = preload("res://Audio/Soundtrack/6. SWD_TLZa1.ogg")
-@export var nextZone = load("res://Scene/Zones/BaseZone.tscn")
+@export var bossMusic = preload("res://Audio/Soundtrack/5. SWD_Boss.ogg")
+@export var nextZone: Array = ["res://Scene/Zones/BaseZone.tscn"] # List of file paths
 
 @export_enum("Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal1 = 0
 @export_enum("Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal2 = 1
@@ -44,6 +45,12 @@ func _ready():
 # used for stage starts, also used for returning from special stages
 func level_reset_data(playCard = true):
 	# music handling
+	if Global.bossMusic != null:
+		if bossMusic != null:
+			Global.bossMusic.stream = bossMusic
+			#Global.music.play()
+			Global.bossMusic.stream_paused = true
+	
 	if Global.music != null:
 		if music != null:
 			Global.music.stream = music
@@ -55,6 +62,7 @@ func level_reset_data(playCard = true):
 	# set next zone
 	if nextZone != null:
 		Global.nextZone = nextZone
+		# Find a way to smartly alter this
 	
 	# set pausing to true
 	if Global.main != null:

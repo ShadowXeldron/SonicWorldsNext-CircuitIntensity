@@ -15,8 +15,12 @@ var checkPointTime = 0
 
 # the starting room, this is loaded on game resets, you may want to change this
 var startScene = preload("res://Scene/Presentation/Title.tscn")
-var nextZone = load("res://Scene/Zones/BaseZone.tscn") # change this to the first level in the game (also set in "reset_values")
+var nextZone: Array = ["res://Scene/Zones/BaseZone.tscn"] # change this to the first level in the game (also set in "reset_values")
 # use this to store the current state of the room, changing scene will clear everythin
+
+# Custom
+var exitID = 0
+
 var stageInstanceMemory = null
 var stageLoadMemory = null
 
@@ -43,7 +47,10 @@ var effectTheme = null
 var drowning = null
 var life = null
 # song themes to play for things like invincibility and speed shoes
-var themes = [preload("res://Audio/Soundtrack/1. SWD_Invincible.ogg"),preload("res://Audio/Soundtrack/2. SWD_SpeedUp.ogg"),preload("res://Audio/Soundtrack/4. SWD_StageClear.ogg")]
+var themes = [preload("res://Audio/Soundtrack/1. SWD_Invincible.ogg"),
+	preload("res://Audio/Soundtrack/2. SWD_SpeedUp.ogg"),
+	preload("res://Audio/Soundtrack/4. SWD_StageClear.ogg"),
+	preload("res://Audio/Soundtrack/SuperSonic.ogg")]
 # index for current theme
 var currentTheme = 0
 
@@ -143,7 +150,7 @@ func reset_values():
 	currentCheckPoint = -1
 	animals = [0,1]
 	nodeMemory = []
-	nextZone = load("res://Scene/Zones/BaseZone.tscn")
+	nextZone = [load("res://Scene/Zones/BaseZone.tscn")]
 
 # use this to play a sound globally, use load("res:..") or a preloaded sound
 func play_sound(sound = null):

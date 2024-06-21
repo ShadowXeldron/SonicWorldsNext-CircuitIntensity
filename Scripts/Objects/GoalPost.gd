@@ -1,8 +1,10 @@
 extends Sprite2D
+@export var exitID = 0 # Used to set which level the exit leads to
 var getCam = null
 var player = null
 
 @onready var screenXSize = GlobalFunctions.get_screen_size().x
+
 
 func _physics_process(_delta):
 	# check if player.x position is greater then the post
@@ -59,6 +61,7 @@ func _physics_process(_delta):
 		# if player greater then screen and stage clear phase is 2 then activate the stage clear sequence
 		if player:
 			if player.global_position.x > global_position.x+(screenXSize/2) and player.movement.x >= 0 and Global.stageClearPhase == 2:
+				Global.exitID = exitID
 				# stage clear won't work is stage clear phase isn't 0
 				Global.stageClearPhase = 0
 				Global.stage_clear()

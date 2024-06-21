@@ -5,6 +5,8 @@ extends Node2D
 @export var nextZone = load("res://Scene/Zones/BaseZone.tscn")
 var selected = false
 
+
+
 # character labels, the amount of labels in here determines the total amount of options, see the set character option at the end for settings
 var characterLabels = ["Sonic and Tails", "Sonic", "Tails", "Knuckles", "Amy", "Mighty"]
 # level labels, the amount of labels in here determines the total amount of options, see set level option at the end for settings
@@ -18,8 +20,8 @@ func _ready():
 	Global.music.stream = music
 	Global.music.play()
 	$UI/Labels/Control/Character.text = characterLabels[characterID]
-	if nextZone != null:
-		Global.nextZone = nextZone
+	#if nextZone != null:
+	#	Global.nextZone = nextZone
 
 func _input(event):
 	if !selected:
@@ -88,11 +90,11 @@ func _input(event):
 					
 			# set the level
 			match(levelID):
-				0: # Base Zone Act 1
-					Global.nextZone = load("res://Scene/Zones/BaseZone.tscn") # unnecessary since it's arleady set
+				0: # Base Zone Act 1d
+					nextZone = load("res://Scene/Zones/BaseZone.tscn") # unnecessary since it's arleady set
 				1: # Base Zone Act 2
-					Global.nextZone = load("res://Scene/Zones/BaseZoneAct2.tscn") # Replace me! I don't exist yet!
+					nextZone = load("res://Scene/Zones/BaseZoneAct2.tscn") # Replace me! I don't exist yet!
 				#2: # Chunk Zone Act 1
 				#	Global.nextZone = load("res://Scene/Zones/ChunkZone.tscn")
 			
-			Global.main.change_scene_to_file(Global.nextZone,"FadeOut","FadeOut",1)
+			Global.main.change_scene_to_file(nextZone,"FadeOut","FadeOut",1)

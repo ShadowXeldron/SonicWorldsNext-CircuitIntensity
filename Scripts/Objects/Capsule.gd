@@ -1,5 +1,6 @@
 extends StaticBody2D
 var getCam = null
+@export var exitID = 0
 
 @onready var screenXSize = get_viewport_rect().size.x
 
@@ -54,6 +55,7 @@ func activate():
 		$Explode.play()
 		# set global stage clear phase to 1, 1 is used to stop the timer (see HUD script)
 		Global.stageClearPhase = 1
+		Global.exitID = exitID
 		
 		# set player camera limits
 		for i in Global.players:
