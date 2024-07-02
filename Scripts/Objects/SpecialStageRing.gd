@@ -27,7 +27,7 @@ func _process(delta):
 			Global.bossMusic.stop()
 			$Warp.play()
 			# set next zone to current zone (this will reset when the stage is loaded back in)
-			Global.nextZone = Global.main.lastScene
+			Global.nextZone = [Global.main.lastScene]
 			
 			# add ring to node memory so you can't farm the ring
 			Global.nodeMemory.append(get_path())

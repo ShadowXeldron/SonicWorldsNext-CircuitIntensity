@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c30uceea18q1w"]
+[gd_scene load_steps=33 format=3 uid="uid://c30uceea18q1w"]
 
 [ext_resource type="Texture2D" uid="uid://dloxtqer7p78l" path="res://Graphics/HUD/hud_lives.png" id="2_cfvjc"]
 [ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="2_xy7bp"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bn4id4yr1lron" path="res://Graphics/HUD/hud_results_text.png" id="10_ddlv5"]
 [ext_resource type="Texture2D" uid="uid://bbm5bncrd1o4k" path="res://Graphics/HUD/LevelCards/EdgePattern.png" id="10_xpi0a"]
 [ext_resource type="Material" uid="uid://uh2c8jbp8qwd" path="res://Shaders/WaterPalette.tres" id="13_1ly2g"]
+[ext_resource type="AudioStream" uid="uid://dnbn4rafub0qg" path="res://Audio/Soundtrack/Results.ogg" id="15_b3l8w"]
 [ext_resource type="AudioStream" uid="uid://dh4rsaka62ph4" path="res://Audio/SFX/Gimmicks/Switch.wav" id="16"]
+[ext_resource type="Theme" uid="uid://cn67rr7xa0tnd" path="res://Graphics/Fonts/Rank_Icon.tres" id="16_yawdt"]
 [ext_resource type="AudioStream" uid="uid://clgobastngtvy" path="res://Audio/SFX/Misc/Score.wav" id="17"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6elbh"]
@@ -566,6 +568,12 @@ _data = {
 "RESET": SubResource("8")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_d8xlg"]
+font_color = Color(1, 1, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
 [sub_resource type="Animation" id="9"]
 resource_name = "GameOver"
 length = 13.0
@@ -824,7 +832,7 @@ vframes = 2
 [node name="PatternLeft" type="Control" parent="LevelCard"]
 anchors_preset = 0
 anchor_bottom = 1.0
-offset_bottom = 15264.0
+offset_bottom = 15488.0
 
 [node name="PatternLeft" type="TextureRect" parent="LevelCard/PatternLeft"]
 layout_mode = 1
@@ -848,7 +856,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -32.0
-offset_bottom = 14976.0
+offset_bottom = 15200.0
 
 [node name="PatternRight" type="TextureRect" parent="LevelCard/RightRatio/PatternRight"]
 layout_mode = 1
@@ -858,7 +866,7 @@ anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
 offset_top = 32.0
-offset_right = 5024.0
+offset_right = 10080.0
 offset_bottom = 288.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -972,6 +980,29 @@ bus = &"SFX"
 [node name="Score" type="AudioStreamPlayer" parent="LevelClear"]
 stream = ExtResource("17")
 bus = &"SFX"
+
+[node name="PressA_Label" type="Label" parent="LevelClear"]
+visible = false
+layout_mode = 0
+offset_left = 97.0
+offset_top = 169.0
+offset_right = 209.0
+offset_bottom = 185.0
+text = "PRESS ACTION 1 (A) TO PROGRESS"
+label_settings = SubResource("LabelSettings_d8xlg")
+
+[node name="ResultsMusic" type="AudioStreamPlayer" parent="LevelClear"]
+stream = ExtResource("15_b3l8w")
+
+[node name="RankIcon" type="Label" parent="LevelClear"]
+visible = false
+layout_mode = 0
+offset_left = 246.0
+offset_top = 116.0
+offset_right = 286.0
+offset_bottom = 132.0
+theme = ExtResource("16_yawdt")
+text = "A"
 
 [node name="GameOver" type="Control" parent="."]
 layout_mode = 3

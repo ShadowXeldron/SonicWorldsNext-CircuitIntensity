@@ -19,4 +19,8 @@ image_margin=Rect2i(0, 0, 0, 0)
 character_margin=Rect2i(0, 0, 0, 0)
 fallbacks=[]
 compress=true
+<<<<<<< HEAD
 scaling_mode=2
+=======
+scaling_mode=0
+>>>>>>> 2113aad5373585e77615643824c3008036102b4c

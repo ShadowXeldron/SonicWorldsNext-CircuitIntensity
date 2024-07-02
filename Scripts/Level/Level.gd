@@ -3,6 +3,8 @@ extends Node2D
 @export var music = preload("res://Audio/Soundtrack/6. SWD_TLZa1.ogg")
 @export var bossMusic = preload("res://Audio/Soundtrack/5. SWD_Boss.ogg")
 @export var nextZone: Array = ["res://Scene/Zones/BaseZone.tscn"] # List of file paths
+@export var rankRequirements: Array[int] = [0, 200, 300, 400, 500, 1000] # In order of P, D, C, B, A and S. E is the fallback score.
+# P rank requires the **MINIMUM** score for that level to get
 
 @export_enum("Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal1 = 0
 @export_enum("Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal2 = 1
@@ -44,6 +46,8 @@ func _ready():
 
 # used for stage starts, also used for returning from special stages
 func level_reset_data(playCard = true):
+	Global.score = 0
+	
 	# music handling
 	if Global.bossMusic != null:
 		if bossMusic != null:

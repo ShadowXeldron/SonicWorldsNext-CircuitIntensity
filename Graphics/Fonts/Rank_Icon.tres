@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cn67rr7xa0tnd"]
+
+[ext_resource type="FontFile" uid="uid://btb3lh3cpnc6x" path="res://Graphics/Fonts/mid_font.png" id="1_qtpdp"]
+
+[resource]
+default_font = ExtResource("1_qtpdp")
+default_font_size = 32

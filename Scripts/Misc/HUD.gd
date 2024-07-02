@@ -18,6 +18,21 @@ extends CanvasLayer
 # used for flashing ui elements (rings, time)
 var flashTimer = 0
 
+# Rank arrays
+
+# Array of rank letters	
+var rankLetters = ["P", "E", "D", "C", "B", "A", "S"]
+
+# Array of colours for the rank icons
+var rankColours = [Color(216, 0, 243, 0), Color(0, 182, 147, 0), Color(198, 92, 0, 0), Color(66, 205, 0, 0), Color(0, 17, 242, 0), Color(255, 0, 0, 0), Color(255 ,234 , 0, 0)]
+# P = d800f3
+# E = 00b693, should also be rotated by 12 degrees
+# D = c65c00
+# C = 42cd00
+# B = 0011f2
+# A = ff0000
+# S = ffea00
+
 # isStageEnding is used for level completion, stop loop recursions
 var isStageEnding = false
 
@@ -30,6 +45,8 @@ var gameOver = false
 
 # signal that gets emited once the stage tally is over
 signal tally_clear
+# Signal that is emitted when the action button is pressed
+signal pressedAction
 
 # character name strings, used for "[player] has cleared", this matches the players character ID so you'll want to add the characters name in here matching the ID if you want more characters
 # see Global.PlayerChar1
@@ -209,8 +226,25 @@ func _process(delta):
 			# wait 2 seconds (reuse timer)
 			$LevelClear/CounterWait.start(2)
 			await $LevelClear/CounterWait.timeout
+			# Set up rank icon
+			var rank = getRankID(Global.score)
+			print(Global.score)
+			print(Global.rankRequirements)
+			print(rank)
+			print(rankLetters[rank])
+			$LevelClear/RankIcon.text = rankLetters[rank]
+			# $LevelClear/RankIcon.add_theme_color_override("font_color", rankColours[rank])
+			$LevelClear/RankIcon.visible = true
+			
+			$LevelClear/PressA_Label.visible = true
+			$LevelClear/ResultsMusic.play()
+			await pressedAction
+			$LevelClear/ResultsMusic.stop()
+			$LevelClear/PressA_Label.visible = false
+			$LevelClear/RankIcon.visible = false
+			
 			# after clear, change to next level in Global.nextZone (you can set the next zone in the level script node)
-			print(Global.nextZone)
+			Global.score = 0 # Reset score on a per-level basis for the ranking system
 			Global.main.change_scene_to_file(Global.nextZone[Global.exitID],"FadeOut","FadeOut",1)
 	
 	# game over sequence
@@ -269,4 +303,35 @@ func _on_CounterCount_timeout():
 	$LevelClear/Tally/ScoreNumber.text = scoreText.text
 	$LevelClear/Tally/TimeNumbers.text = "%6d" % timeBonus
 	$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
-	
+
+# Rank icon stuff
+
+func getRankID(score): # Possibly make this be part of the global script?
+	# Unfortunately, this code's gonna suck
+	if score < Global.rankRequirements[0]: # P Rank - BELOW the specified score. Used for minimum score runs.
+		return 0
+	elif score <= Global.rankRequirements[1]: # D Rank
+		return 2
+	elif score > Global.rankRequirements[2]: # C Rank
+		return 3
+	elif score > Global.rankRequirements[3]: # B Rank
+		return 4
+	elif score > Global.rankRequirements[4]: # A Rank
+		return 5
+	elif score > Global.rankRequirements[5]: # S Rank
+		return 6
+	else: # Fall back on E
+		return 1 
+
+
+# Input event handling
+func _input(event):
+	if event.is_action_pressed("gm_action"):
+		pressedAction.emit()
+
+
+
+
+
+
+

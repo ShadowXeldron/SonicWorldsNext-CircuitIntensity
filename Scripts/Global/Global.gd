@@ -20,6 +20,7 @@ var nextZone: Array = ["res://Scene/Zones/BaseZone.tscn"] # change this to the f
 
 # Custom
 var exitID = 0
+var rankRequirements: Array[int] = [0, 200, 300, 400, 500, 1000]
 
 var stageInstanceMemory = null
 var stageLoadMemory = null
@@ -151,6 +152,8 @@ func reset_values():
 	animals = [0,1]
 	nodeMemory = []
 	nextZone = [load("res://Scene/Zones/BaseZone.tscn")]
+	exitID = 0
+	rankRequirements = [0, 200, 300, 400, 500, 1000]
 
 # use this to play a sound globally, use load("res:..") or a preloaded sound
 func play_sound(sound = null):
