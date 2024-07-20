@@ -125,7 +125,7 @@ func _process(_delta):
 						# set initial movement
 						parent.sfx[15].play()
 						# set movement and bounce reaction
-						parent.movement = Vector2(parent.movement.x / 2,8*90)
+						parent.movement = Vector2(parent.movement.x / 1.5,8*65)
 						parent.bounceReaction = 2.5
 						
 
