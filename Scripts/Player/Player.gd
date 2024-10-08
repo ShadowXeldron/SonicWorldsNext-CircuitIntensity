@@ -63,7 +63,7 @@ var enemyCounter = 0
 # 8 Jump
 # 9 Jump release velocity
 
-enum CHARACTERS {SONIC, TAILS, KNUCKLES, AMY, MIGHTY}
+enum CHARACTERS {SONIC, TAILS, KNUCKLES, AMY, MIGHTY, RAY}
 var character = CHARACTERS.SONIC
 
 # 0 = Sonic, 1 = Tails, 2 = Knuckles, 3 = Shoes, 4 = Super Sonic
@@ -128,7 +128,7 @@ var airControl = true
 
 # States
 enum STATES {NORMAL, AIR, JUMP, ROLL, SPINDASH, PEELOUT, ANIMATION, HIT, DIE, CORKSCREW, JUMPCANCEL,
-SUPER, FLY, RESPAWN, HANG, GLIDE, WALLCLIMB, AMYHAMMER}
+SUPER, FLY, RESPAWN, HANG, GLIDE, WALLCLIMB, AMYHAMMER, RAY_GLIDE}
 var currentState = STATES.AIR
 @onready var hitBoxOffset = {normal = $HitBox.position, crouch = $HitBox.position}
 @onready var defaultHitBoxPos = $HitBox.position
@@ -232,6 +232,8 @@ var Player = load("res://Entities/MainObjects/Player.tscn")
 var tailsAnimations = preload("res://Graphics/Players/PlayerAnimations/Tails.tscn")
 var knucklesAnimations = preload("res://Graphics/Players/PlayerAnimations/Knuckles.tscn")
 var amyAnimations = preload("res://Graphics/Players/PlayerAnimations/Amy.tscn")
+var mightyAnimations = preload("res://Graphics/Players/PlayerAnimations/Mighty.tscn")
+var rayAnimations = preload("res://Graphics/Players/PlayerAnimations/Ray.tscn")
 
 # Get sfx list
 @onready var sfx = $SFX.get_children()
@@ -326,6 +328,12 @@ func _ready():
 				playerPal.set_shader_parameter("palRows",16)
 				playerPal.set_shader_parameter("row",0)
 				playerPal.set_shader_parameter("paletteTexture",load("res://Graphics/Palettes/SuperKnuckles.png"))
+			
+			CHARACTERS.RAY:
+				playerPal.set_shader_parameter("amount",8)
+				playerPal.set_shader_parameter("palRows",16)
+				playerPal.set_shader_parameter("row",0)
+				playerPal.set_shader_parameter("paletteTexture",load("res://Graphics/Palettes/SuperTails.png"))
 				
 	
 	
@@ -379,6 +387,28 @@ func _ready():
 			spriteController = amy
 			get_node("OldSprite").queue_free()
 			maxCharGroundHeight = 12 # adjust height distance to prevent clipping off floors (amy's smaller)
+		CHARACTERS.MIGHTY:
+			# Set sprites
+			currentHitbox = HITBOXESSONIC
+			get_node("Sonic").name = "OldSprite"
+			var mighty = mightyAnimations.instantiate()
+			add_child(mighty)
+			sprite = mighty.get_node("Sprite2D")
+			animator = mighty.get_node("PlayerAnimation")
+			superAnimator = mighty.get_node_or_null("SuperPalette")
+			spriteController = mighty
+			get_node("OldSprite").queue_free()
+		CHARACTERS.RAY:
+			# Set sprites
+			currentHitbox = HITBOXESKNUCKLES
+			get_node("Sonic").name = "OldSprite"
+			var ray = rayAnimations.instantiate()
+			add_child(ray)
+			sprite = ray.get_node("Sprite2D")
+			animator = ray.get_node("PlayerAnimation")
+			superAnimator = ray.get_node_or_null("SuperPalette")
+			spriteController = ray
+			get_node("OldSprite").queue_free()
 			
 	
 	# run switch physics to ensure character specific physics

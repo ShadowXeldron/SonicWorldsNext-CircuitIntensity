@@ -31,7 +31,10 @@ var playerIdles = [
 	["idle1","idle2","idle2","idle2","idle2","idle3",
 	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
 	"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
-	"idle5"]
+	"idle5"],
+	
+	# Ray (using Knuckles as a placeholder)
+	["idle1"],
 ]
 
 func state_exit():
@@ -54,9 +57,10 @@ func _process(delta):
 			parent.animator.play("spinDash")
 			parent.set_state(parent.STATES.SPINDASH)
 		# peelout (Sonic only)
-		elif (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] < 0 and parent.character == parent.CHARACTERS.SONIC):
+		elif (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] < 0 and (parent.character == parent.CHARACTERS.SONIC or parent.character == parent.CHARACTERS.TAILS)):
 			parent.sfx[2].play()
 			parent.sfx[2].pitch_scale = 1
+			
 			parent.spindashPower = 0
 			parent.set_state(parent.STATES.PEELOUT)
 		else:

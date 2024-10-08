@@ -1,6 +1,7 @@
 extends PlayerState
 
-var dashPower = 12
+var dashPower_sonic = 12
+var dashPower = 10
 
 func _process(delta):
 	# dust sprite
@@ -13,7 +14,11 @@ func _process(delta):
 	var speedCalc = parent.spindashPower*60
 	
 	# increase spindashPower gradually
-	parent.spindashPower = min(parent.spindashPower+delta*24,dashPower)
+	if parent.character == parent.CHARACTERS.SONIC:
+		parent.spindashPower = min(parent.spindashPower + delta * 24, dashPower_sonic)
+	else: # Everyone else's peelout is slower
+		parent.spindashPower = min(parent.spindashPower + delta * 10, dashPower)
+	
 	parent.peelOutCharge = speedCalc
 	
 	# animation based on speed

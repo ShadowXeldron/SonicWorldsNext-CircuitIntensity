@@ -1,7 +1,7 @@
+# Ray Glide script
 extends PlayerState
 
 # first is normal, second is super speed
-var glideAccel = [0.015625,0.046875]
 var glideGrav = 0.125
 var friction = 0.125
 var speedClamp = 24*60
@@ -23,7 +23,7 @@ func state_activated():
 		isFall = true
 		landed = false
 		sliding = false
-		parent.animator.play("glideFall")
+		parent.animator.play("roll")
 		parent.animator.advance(1)
 		
 	else:
@@ -46,7 +46,7 @@ func state_exit():
 # process mostly used for inputs (see player)
 func _process(_delta):
 	# Jump and Spindash cancel
-	if (parent.inputs[parent.INPUTS.ACTION] == 1 or parent.inputs[parent.INPUTS.ACTION2] == 1 or parent.inputs[parent.INPUTS.ACTION3] == 1) and parent.ground and (sliding or isFall):
+	if (parent.inputs[parent.INPUTS.ACTION] == 1 or parent.inputs[parent.INPUTS.ACTION2] == 1 or parent.inputs[parent.INPUTS.ACTION3] == 1) and parent.ground:
 		parent.movement.x = 0
 		if (parent.inputs[parent.INPUTS.YINPUT] > 0):
 			parent.animator.play("spinDash")
@@ -63,21 +63,13 @@ func _process(_delta):
 		
 	# check if not falling, if not then do glide routine
 	if !isFall and !sliding:
-		# Go into falling if action not held
+		# Go into roll state action not held
 		if !parent.inputs[parent.INPUTS.ACTION] and !parent.inputs[parent.INPUTS.ACTION2] and !parent.inputs[parent.INPUTS.ACTION3]:
-			parent.movement.x *= 0.25
-			parent.animator.play("glideFall")
-			parent.sprite.flip_h = (parent.direction < 0)
-			# reset hitbox
-			parent.set_hitbox(parent.currentHitbox.NORMAL)
-			isFall = true
-			parent.reflective = false
+			parent.animator.play("roll")
+			parent.set_state(parent.STATES.ROLL)
+			parent.abilityUsed = true
 
 func _physics_process(delta):
-	# Change parent direction
-	if parent.inputs[parent.INPUTS.XINPUT] != 0 and !sliding:
-		parent.direction = parent.inputs[parent.INPUTS.XINPUT]
-	
 	# check if not falling, if not then do glide routine
 	if !isFall and !sliding:
 		# Turning
@@ -104,50 +96,25 @@ func _physics_process(delta):
 		
 		parent.animator.advance(-parent.animator.current_animation_position+(animSize*offset))
 		
-		
 		# set facing direction
 		parent.sprite.flip_h = false
 		
 		# air movement
 		if parent.pushingWall == 0:
-			parent.movement.x = clamp(parent.movement.x+(glideAccel[int(parent.isSuper)]/GlobalFunctions.div_by_delta(delta)*parent.direction),-speedClamp,speedClamp)
+			parent.movement.x = clamp(parent.movement.x + (GlobalFunctions.div_by_delta(delta)*parent.direction), -speedClamp, speedClamp)
 		
-		# Limit vertical movement
-		if parent.movement.y < 0.5*60:
-			parent.movement.y += glideGrav/GlobalFunctions.div_by_delta(delta)
-		elif parent.movement.y > 0.5*60:
-			parent.movement.y -= glideGrav/GlobalFunctions.div_by_delta(delta)
+		# Do Ray's vertical stuff
+		parent.movement.y += parent.inputs[parent.INPUTS.YINPUT] * 6
 		
 		# Go into sliding if on ground
 		if parent.ground and !sliding and groundBuffer >= 1:
-			parent.animator.play("glideSlide")
-			if parent.movement.x != 0:
-				parent.direction = sign(parent.movement.x)
-			parent.sprite.flip_h = (parent.direction < 0)
-			sliding = true
-			parent.reflective = false
-			$"../../SkidDustTimer".start(0.1)
-			groundBuffer = 0
+			parent.set_state(parent.STATES.NORMAL)
 		
 		# apply ground buffer
 		elif parent.ground:
 			groundBuffer = 1
 		else:
 			groundBuffer = 0
-		
-		# Go into wall cling if on wall
-		parent.horizontalSensor.force_raycast_update()
-		if parent.horizontalSensor.is_colliding() and !parent.ground:
-			# set direction
-			if parent.movement.x != 0:
-				parent.direction = sign(parent.movement.x)
-			parent.sprite.flip_h = (parent.direction < 0)
-			
-			parent.set_state(parent.STATES.WALLCLIMB,parent.currentHitbox.GLIDE)
-			# play grab sound
-			parent.sfx[26].play()
-			parent.animator.play("climb")
-			parent.movement = Vector2.ZERO
 		
 		# prevent getting stuck on corners
 		parent.horizontalSensor.position.y = (parent.get_node("HitBox").shape.size.y/2)-1
@@ -167,9 +134,8 @@ func _physics_process(delta):
 		if parent.movement.x == 0 and parent.lastActiveAnimation != "glideGetUp" and parent.ground:
 			parent.cameraDragLerp = 1
 			parent.set_hitbox(parent.currentHitbox.NORMAL)
-			parent.animator.play("glideGetUp")
+			#parent.animator.play("glideGetUp")
 			# wait for animation to finish and check that the state is still the same
-			await parent.animator.animation_finished
 			if parent.currentState == parent.STATES.GLIDE and sliding:
 				parent.set_state(parent.STATES.NORMAL)
 		
@@ -189,33 +155,6 @@ func _physics_process(delta):
 			# ground buffer's needed to prevent the player immediately disconecting
 			groundBuffer = 1
 			parent.movement.y = 0
-	
-	# Do falling routine
-	else:
-		# regular movement
-		if !parent.ground:
-			# gravity
-			parent.movement.y += parent.grv/GlobalFunctions.div_by_delta(delta)
-			# movement (copied from air state)
-			if (parent.movement.x*parent.inputs[parent.INPUTS.XINPUT] < parent.top):
-				if (abs(parent.movement.x) < parent.top):
-					parent.movement.x = clamp(parent.movement.x+parent.air/GlobalFunctions.div_by_delta(delta)*parent.inputs[parent.INPUTS.XINPUT],-parent.top,parent.top)
-			# set direction
-			parent.sprite.flip_h = (parent.direction < 0)
-			
-		# landing
-		if parent.ground and !landed:
-			landed = true
-			# play land sound
-			parent.sfx[27].play()
-			# set movement to nothign
-			parent.movement = Vector2.ZERO
-			parent.animator.play("land")
-			# wait for landing animation to finish and check that the state is still the same
-			await parent.animator.animation_finished
-			if parent.currentState == parent.STATES.GLIDE and isFall:
-				parent.set_state(parent.STATES.NORMAL)
-
 
 # create skid dust
 func _on_SkidDustTimer_timeout():
@@ -225,7 +164,7 @@ func _on_SkidDustTimer_timeout():
 		elif parent.ground:
 			var dust = parent.Particle.instantiate()
 			dust.play("SkidDust")
-			dust.global_position = parent.global_position+(Vector2.DOWN*8).rotated(deg_to_rad(parent.spriteRotation-90))
+			dust.global_position = parent.global_position+(Vector2.DOWN * 8).rotated(deg_to_rad(parent.spriteRotation - 90))
 			dust.z_index = 10
 			parent.get_parent().add_child(dust)
 			parent.sfx[28].play()

@@ -50,7 +50,7 @@ signal pressedAction
 
 # character name strings, used for "[player] has cleared", this matches the players character ID so you'll want to add the characters name in here matching the ID if you want more characters
 # see Global.PlayerChar1
-var characterNames = ["sonic","tails","knuckles","amy","mighty"]
+var characterNames = ["sonic","tails","knuckles","amy","mighty","ray"]
 
 func _ready():
 	# error prevention

@@ -67,12 +67,14 @@ func _process(_delta):
 	
 
 func _physics_process(delta):
-	
-	if parent.any_action_held_or_pressed() and (parent.get_y_input() > 0):
-		parent.set_state(parent.STATES.NORMAL)
-	
 	# If carrying another player, 
 	var carriedPlayer = null
+	
+	# Flight cancel
+	if parent.any_action_held_or_pressed() and (parent.get_y_input() > 0) and carriedPlayer == null:
+		parent.animator.play("roll")
+		parent.set_state(parent.STATES.JUMP)
+		parent.abilityUsed = true
 	
 	if carryBox.get_player_contacting_count() > 0:
 		carriedPlayer = carryBox.get_player(0)
