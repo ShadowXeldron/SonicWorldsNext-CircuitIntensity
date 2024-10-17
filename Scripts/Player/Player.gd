@@ -1048,7 +1048,7 @@ func set_shield(setShieldID):
 
 
 
-# see Global for damage types, 0 = none, 1 = Fire, 2 = Elec, 3 = Water
+# see Global for damage types, 0 = none, 1 = Fire, 2 = Elec, 3 = Water, 4 = Spikes
 func hit_player(damagePoint = global_position, damageType = 0, soundID = 6):
 	if damageType != 0 and shield == damageType+1:
 		return false
