@@ -16,7 +16,6 @@ I seriously need to add a proper credit for it here!
 ### Planned Features
 
 - World map system
-- Support for multiple level exits which lead to different stages
 - Score-based per-level ranking system (similar to an S3AIR mod that I'm working on)
 - More playable characters (specifically Mighty and Ray; maybe a few others)
 - Replace Amy's moveset with her Superstars abilities (SWN uses her Origins moveset
